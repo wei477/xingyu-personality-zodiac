@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="星语：轻松探索星座、性格与关系匹配的趣味互动网页。">
+<title>星语 · 性格星座分析</title>
+<style>
+:root{--ink:#18234b;--muted:#7380a6;--purple:#6852f5;--pink:#e7a8ff;--line:#e7eaff;--glass:rgba(255,255,255,.82)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#f6f8ff}
+button,input,select{font:inherit}button{cursor:pointer}
+.topbar{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,.9);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}
+.brand{font-size:20px;font-weight:850;letter-spacing:.5px;display:flex;align-items:center;gap:10px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:12px;color:white;background:linear-gradient(135deg,#7462ff,#d89dff);box-shadow:0 6px 18px #8877ff44}
+.topnote{color:var(--muted);font-size:13px}.wrap{max-width:1240px;margin:auto;padding:24px}
+.hero{position:relative;overflow:hidden;border-radius:28px;min-height:310px;padding:46px 5%;display:flex;align-items:center;background:radial-gradient(circle at 78% 40%,#b6c5ff 0,#9a9df7 18%,transparent 42%),linear-gradient(115deg,#e7eaff,#f5e5ff 58%,#d7e7ff);box-shadow:0 18px 45px #6673bd16}
+.hero:before,.hero:after{content:"✦  ·  ✧     ✦      ·    ✧";position:absolute;color:#fff9;font-size:24px;letter-spacing:18px;right:5%;top:18%}.hero:after{top:auto;right:14%;bottom:16%;font-size:18px}
+.hero-copy{position:relative;z-index:1;max-width:610px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:2.5px;color:#7463e9}.hero h1{font-size:clamp(29px,4vw,45px);line-height:1.3;margin:15px 0 12px;letter-spacing:-1px}.hero p{color:#59688f;line-height:1.9;margin:0 0 23px}.hero-art{position:absolute;right:7%;top:50%;transform:translateY(-50%);width:270px;height:270px;border-radius:50%;display:grid;place-items:center;border:1px solid #ffffffb0;box-shadow:0 0 0 18px #ffffff24,0 0 0 38px #ffffff18;background:radial-gradient(circle,#ffffffb5,#a9b6ff30 60%,transparent 70%);font-size:128px;color:#fff;text-shadow:0 8px 35px #6554e6}
+.btn{border:0;border-radius:13px;padding:13px 21px;font-weight:750;transition:.2s}.btn:hover{transform:translateY(-2px)}.primary{color:white;background:linear-gradient(120deg,#6650f5,#9870fa);box-shadow:0 8px 20px #7965ef35}.secondary{background:#fff;color:#6c5ce7;border:1px solid #d9d7ff}
+.columns{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;margin-top:20px}.panel{background:var(--glass);border:1px solid #e8ebff;border-radius:22px;padding:24px;box-shadow:0 10px 35px #4b5b9a0a}.panel h2{font-size:19px;margin:0 0 18px;display:flex;align-items:center;gap:10px}.mini-icon{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;color:#6e5bf2;background:#eeebff}
+label{font-size:13px;font-weight:700;display:block;margin:16px 0 8px;color:#526184}input,select{width:100%;border:1px solid #dfe5fa;border-radius:12px;padding:13px 12px;background:#fbfcff;color:var(--ink);outline:none}input:focus,select:focus{border-color:#9486ff;box-shadow:0 0 0 3px #8f80ff1b}.hint{font-size:12px;color:#8b96b5;line-height:1.7;margin-top:12px}.full{width:100%;margin-top:18px}
+.tabs{display:flex;gap:5px;padding:5px;border-radius:14px;background:#f1f3ff;margin-bottom:18px}.tab{flex:1;border:0;border-radius:10px;padding:11px 5px;color:#7480a1;background:transparent;font-weight:750;font-size:13px}.tab.active{background:linear-gradient(120deg,#6952f5,#9270f6);color:white;box-shadow:0 4px 12px #7965ef26}
+.result-card{border:1px solid #e6eaff;border-radius:17px;overflow:hidden;background:#fff}.result-head{padding:21px 22px;color:#fff;background:radial-gradient(circle at 80% 0,#8b7cff,transparent 45%),linear-gradient(115deg,#302d7b,#6b5bd9);display:flex;align-items:center;gap:17px}.zodiac-symbol{width:68px;height:68px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;font-size:39px;border:2px solid #fff;background:#ffffff1a}.result-head h3{margin:0 0 6px;font-size:23px}.result-head p{margin:0;color:#e4e3ff;font-size:13px}.result-body{padding:22px}.result-body p{line-height:1.9;color:#697797;font-size:14px;margin-top:0}.tags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}.tag{padding:7px 12px;border-radius:99px;color:#6654d9;background:#f0edff;font-size:12px;font-weight:700}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{padding:13px;border-radius:13px;background:#f7f8ff}.metric b{display:block;font-size:13px;margin-bottom:8px}.stars{color:#f4ac43;letter-spacing:2px}.metric small{color:#8791ae;font-size:11px}
+.quote{margin-top:16px;padding:17px 18px;border-radius:14px;background:linear-gradient(110deg,#f1edff,#f7f2ff);color:#6b5cce;font-size:14px;line-height:1.8}
+.extra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.feature{background:#fff;border:1px solid var(--line);border-radius:18px;padding:21px}.feature .emoji{font-size:24px}.feature h3{font-size:15px;margin:12px 0 7px}.feature p{font-size:12px;line-height:1.8;color:#8791ad;margin:0}
+footer{text-align:center;color:#9aa4c0;font-size:12px;padding:28px 10px 20px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#22284c;color:white;padding:12px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+.lucky-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.lucky{background:#f7f8ff;border:1px solid #eef0ff;border-radius:13px;padding:12px;text-align:center}
+.lucky b{display:block;font-size:11px;color:#8791ae;font-weight:700;margin-bottom:6px;letter-spacing:1px}
+.lucky span{font-size:14px;font-weight:800;color:var(--ink)}
+.act-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.act-row .btn{flex:1;min-width:120px;padding:11px 14px;font-size:13px}
+.result-head.special{background:radial-gradient(circle at 80% 0,#ffd7f4,transparent 45%),linear-gradient(115deg,#9a4fe0,#ff8fc7)}
+.result-head.special .zodiac-symbol{background:#ffffff35}
+.easter-badge{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:99px;background:#ffffff33;font-size:11px;letter-spacing:1px;font-weight:700;color:#fff}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:30}
+.hearts span{position:absolute;bottom:-50px;animation:heartRise linear forwards}
+@keyframes heartRise{to{transform:translateY(-115vh) rotate(40deg);opacity:0}}
+.match-bar{height:10px;border-radius:99px;background:#eef0ff;overflow:hidden;margin:10px 0 4px}
+.match-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#8f7bff,#ff9ed2);transition:width .8s ease}
+@media(max-width:850px){.columns{grid-template-columns:1fr}.hero-art{right:-45px;opacity:.35}.hero-copy{max-width:100%}.hero{padding:36px 7%}.extra-grid{grid-template-columns:1fr}.topnote{display:none}.wrap{padding:14px}.panel{padding:18px}.metrics{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:420px){.metrics{grid-template-columns:1fr}.result-head{padding:17px}.result-body{padding:16px}.hero h1{font-size:29px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">✦</span>星语 · 性格星座分析</div>
+  <div class="topnote">探索你的内在，遇见更好的自己</div>
+  <button class="btn secondary" id="themeBtn" aria-label="切换外观">☾</button>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">PERSONALITY & ZODIAC</div>
+      <h1>认识你的性格，<br>发现属于你的闪光点</h1>
+      <p>从星座特质到性格小测试，轻松探索自己的优势、相处方式与今日灵感。</p>
+      <button class="btn primary" onclick="document.getElementById('birthdate').focus();document.getElementById('formPanel').scrollIntoView({behavior:'smooth',block:'center'})">✦ 开始分析</button>
+      <button class="btn secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})" style="margin-left:8px">了解更多</button>
+    </div>
+    <div class="hero-art" aria-hidden="true">☾</div>
+  </section>
+  <section class="columns">
+    <div class="panel" id="formPanel">
+      <h2><span class="mini-icon">♙</span>输入你的信息</h2>
+      <label for="birthdate">出生日期</label>
+      <input type="date" id="birthdate" max="2026-12-31">
+      <label for="nickname">怎么称呼你（可选）</label>
+      <input type="text" id="nickname" maxlength="20" placeholder="例如：小星星">
+      <label for="mood">最近的状态</label>
+      <select id="mood">
+        <option value="curious">好奇，想了解自己</option>
+        <option value="tired">有点疲惫，想找回能量</option>
+        <option value="love">正在关注感情与关系</option>
+        <option value="career">想看看学习或工作方向</option>
+      </select>
+      <button class="btn primary full" id="analyzeBtn">✦ 生成我的分析</button>
+      <div class="hint">无需注册，不会上传或保存你的生日。分析内容用于娱乐与自我探索，不代替专业建议。</div>
+    </div>
+    <div class="panel">
+      <h2><span class="mini-icon">✦</span>你的探索报告</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="zodiac">♧ 星座解读</button>
+        <button class="tab" data-tab="personality">▣ 性格画像</button>
+        <button class="tab" data-tab="love">♡ 相处提示</button>
+      </div>
+      <div class="result-card">
+        <div class="result-head" id="resultHead">
+          <div class="zodiac-symbol" id="symbol">✧</div>
+          <div><h3 id="resultTitle">你的星座，等你来探索</h3><p id="dateRange">选择出生日期，生成专属小报告</p></div>
+        </div>
+        <div class="result-body">
+          <p id="description">每个人都有独特的闪光点。输入生日后，我们会展示对应的星座趣味解读、性格关键词和相处建议。</p>
+          <h4 id="subTitle">可能的性格关键词</h4>
+          <div class="tags" id="tags"><span class="tag">好奇心</span><span class="tag">成长力</span><span class="tag">独特视角</span></div>
+          <div class="metrics" id="metrics">
+            <div class="metric"><b>自我探索</b><span class="stars">★★★★☆</span><br><small>认识自己的需要</small></div>
+            <div class="metric"><b>关系沟通</b><span class="stars">★★★★☆</span><br><small>理解不同的表达</small></div>
+            <div class="metric"><b>行动灵感</b><span class="stars">★★★☆☆</span><br><small>从小目标开始</small></div>
+          </div>
+          <div class="quote" id="quote">“不必急着成为别人，先认真看见自己的光。”</div>
+          <div class="lucky-row" id="luckyRow" style="display:none"></div>
+          <div class="act-row">
+            <button class="btn secondary" id="copyBtn">📋 复制我的报告</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="panel" style="margin-top:18px">
+    <h2><span class="mini-icon">♥</span>星座速配小工具</h2>
+    <p class="hint" style="margin-top:0">先生成你的星座报告，再挑一个想看看的星座，瞧瞧你们的趣味契合度。</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <select id="matchSign" style="flex:1;min-width:180px"></select>
+      <button class="btn primary" id="matchBtn">看看匹配度</button>
+    </div>
+    <div id="matchOut" style="margin-top:14px;font-size:14px;line-height:1.9;color:#697797">还没开始哦～生成报告后，这里会出现你们的匹配小分析。</div>
+  </section>
+  <section class="extra-grid" id="features">
+    <article class="feature"><div class="emoji">🌙</div><h3>轻松星座解读</h3><p>根据生日识别星座，了解常见特质与关键词，把星座当作认识自己的有趣入口。</p></article>
+    <article class="feature"><div class="emoji">🪞</div><h3>趣味性格画像</h3><p>从日常状态出发，给你一些自我观察的问题与积极建议，不给你贴固定标签。</p></article>
+    <article class="feature"><div class="emoji">💜</div><h3>简单、私密、免费</h3><p>纯前端网页，无需账号和服务器。生日只在当前页面计算，不会发送到后台。</p></article>
+  </section>
+  <footer>© 2026 星语 · 性格与星座，陪你发现更多可能<br>星座与性格内容仅供娱乐和自我探索参考</footer>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const signs=[
+{name:"摩羯座",symbol:"♑",range:"12月22日—1月19日",start:[12,22],end:[1,19],traits:["踏实可靠","目标清晰","耐心专注","责任感强","稳步成长"],desc:"你可能更重视长期积累，愿意把大目标拆成一步步可以完成的小任务。别忘了，休息也是持续前进的一部分。",love:"比起华丽承诺，你或许更看重稳定、行动与被认真对待。试着把在意说出来，让对方有机会理解你。",quote:"慢慢来并不代表落后，你正在用自己的节奏靠近目标。"},
+{name:"水瓶座",symbol:"♒",range:"1月20日—2月18日",start:[1,20],end:[2,18],traits:["独立思考","创意十足","开放包容","喜欢探索","观点鲜明"],desc:"你可能喜欢从不同角度看问题，也珍惜自己的空间。你的新点子很有价值，偶尔也可以让别人参与，让想法落地。",love:"平等交流和精神共鸣可能对你很重要。保留自由的同时，也记得用明确的回应传达关心。",quote:"你不需要和所有人走同一条路，探索本身就很有意义。"},
+{name:"双鱼座",symbol:"♓",range:"2月19日—3月20日",start:[2,19],end:[3,20],traits:["感受细腻","想象丰富","温柔共情","直觉敏锐","富有创造力"],desc:"你可能对氛围和他人的情绪比较敏感，想象力也很丰富。照顾别人时，也请给自己的感受留一个位置。",love:"温柔和理解是关系中的礼物，但不必总靠猜测。坦诚表达需求，能让彼此更安心。",quote:"温柔不是忽略自己，而是把善意也分给自己一些。"},
+{name:"白羊座",symbol:"♈",range:"3月21日—4月19日",start:[3,21],end:[4,19],traits:["行动果断","热情直接","勇于尝试","精力充沛","不怕挑战"],desc:"你可能喜欢快速行动、尝试新事物。热情是很好的启动器，配上一点耐心和计划，会让努力更容易持续。",love:"直接和真诚能减少误会。遇到分歧时，先听完对方的想法，再表达自己的立场。",quote:"勇敢开始很棒，给好点子一点时间也同样重要。"},
+{name:"金牛座",symbol:"♉",range:"4月20日—5月20日",start:[4,20],end:[5,20],traits:["稳重耐心","重视品质","忠于承诺","感官敏锐","脚踏实地"],desc:"你可能更信任稳定的节奏和看得见的成果。坚持能帮你走远，也可以给变化留一点空间，让生活有新鲜感。",love:"可靠与陪伴可能是你表达在意的方式。偶尔把心里的想法说出来，对方会更容易感受到。",quote:"扎实的每一步，都在悄悄积累成你的底气。"},
+{name:"双子座",symbol:"♊",range:"5月21日—6月21日",start:[5,21],end:[6,21],traits:["思维灵活","善于表达","好奇心强","适应力佳","点子很多"],desc:"你可能喜欢交流、学习和尝试多种可能。选择太多时，不妨先挑一件最想完成的事，给它一点专注时间。",love:"有趣的对话容易拉近距离。除了分享新鲜事，也可以聊聊更真实的感受和期待。",quote:"好奇让世界变大，专注让你的想法变成现实。"},
+{name:"巨蟹座",symbol:"♋",range:"6月22日—7月22日",start:[6,22],end:[7,22],traits:["体贴细心","重视归属","保护欲强","记忆深刻","善于照顾"],desc:"你可能很珍惜熟悉的人和安心的环境。关怀他人是优点，但不需要独自承担所有情绪与责任。",love:"安全感和真诚沟通可能对你很重要。试着清楚说出希望得到的支持，而不是默默期待对方猜到。",quote:"你值得拥有一个可以放松做自己的地方。"},
+{name:"狮子座",symbol:"♌",range:"7月23日—8月22日",start:[7,23],end:[8,22],traits:["自信大方","热情开朗","有领导力","创造力强","重视友情"],desc:"你可能拥有鲜明的表达方式，也愿意为在意的事投入热情。真正的自信不只在于发光，也包括允许自己偶尔脆弱。",love:"热情和慷慨能给关系带来温度。记得让彼此都拥有表达和被看见的空间。",quote:"你有自己的光，不必每时每刻都证明它有多亮。"},
+{name:"处女座",symbol:"♍",range:"8月23日—9月22日",start:[8,23],end:[9,22],traits:["观察细致","逻辑清楚","认真负责","善于整理","追求进步"],desc:"你可能擅长发现细节、优化流程，也希望事情做得更好。别让追求完美变成负担，完成有时比完美更重要。",love:"用行动照顾别人是种表达。适时说出赞赏和感受，会让关心不只停留在细节里。",quote:"进步不是永远不出错，而是愿意持续学习。"},
+{name:"天秤座",symbol:"♎",range:"9月23日—10月23日",start:[9,23],end:[10,23],traits:["善于协调","审美在线","重视公平","温和友善","懂得倾听"],desc:"你可能在意和谐与公平，也愿意理解不同立场。面对选择时，别只考虑让所有人满意，也听听自己的真实偏好。",love:"尊重与互相商量可能是你的关系关键词。表达不同意见并不等于破坏和谐，反而能让关系更真实。",quote:"平衡不是委屈自己，而是认真照顾每一方的需要。"},
+{name:"天蝎座",symbol:"♏",range:"10月24日—11月22日",start:[10,24],end:[11,22],traits:["洞察敏锐","专注投入","情感深刻","意志坚定","重视信任"],desc:"你可能更愿意深入理解问题，而不是停留在表面。强烈的投入是优势，也记得给自己和他人留出呼吸的空间。",love:"信任和坦诚可能尤其重要。与其反复猜测，不如选择合适的时机直接交流。",quote:"深度是一种力量，轻松一点也不会削弱它。"},
+{name:"射手座",symbol:"♐",range:"11月23日—12月21日",start:[11,23],end:[12,21],traits:["乐观开朗","热爱自由","喜欢冒险","视野开阔","坦率真诚"],desc:"你可能喜欢探索新地方、新观点和新体验。自由感能带来活力，给计划留一点结构，会让冒险更顺利。",love:"共同成长和保有空间可能对你很重要。提前沟通彼此的期待，能让自由与承诺更好共存。",quote:"世界很大，带着好奇出发，也记得照顾正在前进的自己。"}
+];
+const byId=id=>document.getElementById(id);
+let currentTab="zodiac",currentSign=null,currentDate=null,currentName="",easter=false;
+const luckyMap={"摩羯座":[8,"深棕色","🪨"],"水瓶座":[4,"天蓝色","🔭"],"双鱼座":[3,"梦幻紫","🐚"],"白羊座":[1,"亮红色","🔥"],"金牛座":[6,"草绿色","🌱"],"双子座":[5,"柠檬黄","✈️"],"巨蟹座":[2,"银白色","🦀"],"狮子座":[10,"太阳金","👑"],"处女座":[7,"米白色","📓"],"天秤座":[6,"樱花粉","⚖️"],"天蝎座":[9,"墨黑色","🦂"],"射手座":[3,"橙黄色","🏹"]};
+const elements={"摩羯座":"土","水瓶座":"风","双鱼座":"水","白羊座":"火","金牛座":"土","双子座":"风","巨蟹座":"水","狮子座":"火","处女座":"土","天秤座":"风","天蝎座":"水","射手座":"火"};
+const affMap={"火火":92,"风风":90,"水水":89,"土土":88,"火风":88,"水土":86,"土水":86,"风土":70,"火土":70,"风水":72,"水火":58,"土风":70};
+const EGG={
+zodiac:{desc:"今天要告诉你一个小秘密：你是一个漂亮美丽的女孩，像三月里刚绽开的花一样温柔又明亮。愿你每天都开开心心，所有的小愿望都能慢慢实现，被这个世界温柔以待。",tags:["漂亮美丽","永远开心","温柔可爱","闪闪发光","lw最爱的老婆"],quote:"紫菱宝贝，要一直笑呀，你笑起来最好看啦 💕"},
+personality:{desc:"你最珍贵的地方，是对世界温柔，也对自己善良。记得把照顾别人的那份心，也分一点给自己——你值得被好好捧在手心，被人放在心尖上疼爱。",tags:["善良","细腻","乐观","被偏爱","值得所有美好"],quote:"你是 lw 最喜欢的老婆，这件事永远不会变 💜"},
+love:{desc:"被人坚定地选择、认真地喜欢，一定很幸福吧。希望你遇到的每份喜欢都长长久久，希望 lw 永远把你宠成不用长大的小朋友。",tags:["双向奔赴","被宠成宝","甜甜恋爱","长长久久"],quote:"愿你们的故事，从这个春天一直写到很久以后 🌸"}
+};
+function getSign(dateStr){if(!dateStr)return null;const d=new Date(dateStr+"T12:00:00");const m=d.getMonth()+1,day=d.getDate();return signs.find(s=>{const [sm,sd]=s.start,[em,ed]=s.end;if(sm>em)return(m>sm||(m===sm&&day>=sd))||(m<em||(m===em&&day<=ed));return(m>sm||(m===sm&&day>=sd))&&(m<em||(m===em&&day<=ed));})||null}
+function showToast(msg){const t=byId("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400)}
+function calcAge(dateStr){const b=new Date(dateStr+"T12:00:00");const now=new Date();let age=now.getFullYear()-b.getFullYear();const m=now.getMonth()-b.getMonth();if(m<0||(m===0&&now.getDate()<b.getDate()))age--;return age}
+function matchScore(a,b){const ea=elements[a],eb=elements[b];const base=affMap[ea+eb]??affMap[eb+ea]??75;const i1=signs.findIndex(s=>s.name===a),i2=signs.findIndex(s=>s.name===b);return Math.max(55,Math.min(98,base+((i1*7+i2*13)%5)-2))}
+function rainHearts(){const box=document.createElement("div");box.className="hearts";document.body.appendChild(box);const emojis=["💜","💕","🌸","💖","✨","🌷"];for(let i=0;i<28;i++){const h=document.createElement("span");h.textContent=emojis[i%emojis.length];h.style.left=Math.random()*100+"vw";h.style.fontSize=(16+Math.random()*22)+"px";h.style.animationDuration=(3+Math.random()*3)+"s";h.style.animationDelay=(Math.random()*2)+"s";box.appendChild(h)}setTimeout(()=>box.remove(),9000)}
+function renderLucky(){const row=byId("luckyRow");if(!currentSign){row.style.display="none";return}const d=easter?[20,"梦幻紫 · 薰衣草","🌸"]:luckyMap[currentSign.name];row.innerHTML=`<div class="lucky"><b>幸运数字</b><span>${d[0]}</span></div><div class="lucky"><b>幸运色</b><span>${d[1]}</span></div><div class="lucky"><b>幸运物</b><span style="font-size:18px">${d[2]}</span></div>`;row.style.display="grid"}
+function analyze(){const date=byId("birthdate").value;if(!date){showToast("先选择你的出生日期哦");byId("birthdate").focus();return}currentDate=date;currentName=byId("nickname").value.trim();easter=(currentName==="黄紫菱"&&date==="2010-03-20");currentSign=getSign(date);if(!currentSign){showToast("暂时无法识别这个日期");return}renderResult();if(easter){rainHearts();showToast("💜 专属彩蛋已解锁")}else showToast("你的趣味分析已生成")}
+function renderResult(){if(!currentSign)return;const s=currentSign;byId("resultHead").classList.toggle("special",easter);
+if(easter){byId("symbol").textContent="💜";byId("resultTitle").textContent="💜 黄紫菱的专属星光报告";byId("dateRange").innerHTML='2010年3月20日 · 双鱼座 <span class="easter-badge">✨ 专属彩蛋解锁</span>'}
+else{byId("symbol").textContent=s.symbol;byId("resultTitle").textContent=(currentName?currentName+"的":"你的")+s.name+"探索报告";byId("dateRange").textContent=s.range+(currentDate?` · 今年${calcAge(currentDate)}岁`:"")}
+renderLucky();renderTab()}
+function renderTab(){if(!currentSign)return;const s=currentSign;let desc,title,tags,quote;
+if(easter){const e=EGG[currentTab];desc=e.desc;title="专属悄悄话";tags=e.tags;quote=e.quote}
+else if(currentTab==="zodiac"){desc=s.desc;title="星座关键词";tags=s.traits;quote=s.quote}
+else if(currentTab==="personality"){desc="下面这些关键词是一个轻松的自我观察起点，并不是固定的人格结论。你可以想想：哪些描述最像现在的你？哪些是你希望继续培养的能力？";title="试着观察这些特质";tags=[...s.traits.slice(0,3),"自我觉察","持续成长"];quote="了解自己不是给自己下定义，而是多发现几种可能。"}
+else{desc=s.love;title="关系中的小提醒";tags=["坦诚沟通","尊重边界","表达需要","认真倾听","彼此成长"];quote="好的关系不是完美匹配，而是愿意理解与沟通。"}
+byId("description").textContent=desc;byId("subTitle").textContent=title;byId("tags").innerHTML=tags.map(t=>`<span class="tag">${t}</span>`).join("");byId("quote").textContent="“"+quote.replace(/^“|”$/g,"")+"”";
+}
+byId("analyzeBtn").addEventListener("click",analyze);
+signs.forEach(s=>{const o=document.createElement("option");o.value=s.name;o.textContent=`${s.name} ${s.symbol}`;byId("matchSign").appendChild(o)});
+byId("copyBtn").addEventListener("click",async()=>{if(!currentSign){showToast("先生成一份报告再复制吧");return}const txt=`【星语报告】${byId("resultTitle").textContent}\n星座：${currentSign.name}（${currentSign.range}）\n${byId("description").textContent}\n关键词：${[...byId("tags").querySelectorAll(".tag")].map(t=>t.textContent).join("、")}\n${byId("quote").textContent}`;try{await navigator.clipboard.writeText(txt);showToast("报告已复制，快去分享吧")}catch(e){showToast("复制失败，请手动选择文字复制")}});
+byId("matchBtn").addEventListener("click",()=>{if(!currentSign){showToast("先生成你的星座报告再来速配哦");return}const other=byId("matchSign").value;const score=matchScore(currentSign.name,other);let tip;if(score>=88)tip="天作之合！你们的频率非常接近，相处起来轻松又有默契。";else if(score>=78)tip="很有缘分的一对，多一点耐心和沟通会更甜。";else if(score>=68)tip="需要互相磨合的组合，差异反而会让彼此成长。";else tip="性格反差比较大，愿意互相包容就是最好的解药。";byId("matchOut").innerHTML=`<div style="display:flex;justify-content:space-between;font-size:13px;color:#526184;margin-top:8px"><b>${currentSign.name} ${currentSign.symbol} × ${other}</b><b style="color:#8a5cf6">${score}%</b></div><div class="match-bar"><div class="match-fill" style="width:${score}%"></div></div><div>${tip}</div>`});
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{currentTab=btn.dataset.tab;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===btn));if(currentSign)renderTab();else showToast("先输入生日，再查看完整分析")}));
+byId("themeBtn").addEventListener("click",()=>{document.body.classList.toggle("night");const night=document.body.classList.contains("night");document.body.style.background=night?"#15172b":"#f6f8ff";document.body.style.color=night?"#edf0ff":"#18234b";document.querySelectorAll(".panel,.feature,.result-card").forEach(el=>{el.style.background=night?"#222641":"";el.style.borderColor=night?"#373d61":""});byId("themeBtn").textContent=night?"☀":"☾";showToast(night?"已切换夜间氛围":"已切换明亮模式")});
+</script>
+</body>
+</html>
